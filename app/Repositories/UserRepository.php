@@ -54,7 +54,6 @@ class UserRepository implements UserRepositoryInterface
 
         // Attempt to authenticate the user using their email and password.
         if (!Auth::attempt($credentials)) {
-            dd($credentials);
             $user = $this->findUserByEmail($credentials['email']);
             if(!$user){
                 return [ 'statusCode' => 404, 'data' => null, 'message' => 'No user exists with this email address.' ];
