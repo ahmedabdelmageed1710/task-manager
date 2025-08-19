@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeUser(array $data): User
+    private function storeUser(array $data): User
     {
         // Create a new user instance with the provided data.
        return User::create($data);
