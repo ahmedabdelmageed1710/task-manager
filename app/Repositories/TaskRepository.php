@@ -49,7 +49,7 @@ class TaskRepository implements TaskRepositoryInterface
         return ['message' => 'Get task successfully.', 'data' => $task, 'statusCode' => HttpStatusCodes::HTTP_OK];
     }
 
-    public function findTaskById($id)
+    private function findTaskById($id)
     {
         // Find the task by ID.
         $task = Task::find($id);
