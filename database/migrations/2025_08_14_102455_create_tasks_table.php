@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->integer('parent_id')->nullable();
             $table->longText('description')->nullable();
-            $table->foreignId('user_id')->constrained('users')->nullable();
-            $table->foreignId('manager_id')->constrained('users')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('manager_id')->constrained('users');
             $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
             $table->date('due_date');
             $table->timestamps();

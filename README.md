@@ -32,6 +32,7 @@ php artisan migrate --seed
 
 ### 4. Setup Passport Authentication
 ```bash
+php artisan passport:install
 php artisan passport:client --personal --name="User Personal Access Client"
 ```
 
