@@ -51,7 +51,7 @@ class TaskController extends Controller
             $res = $this->taskService->createTask($request->validated());
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_CREATED);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -64,7 +64,7 @@ class TaskController extends Controller
             $res = $this->taskService->getTask($id);
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -86,7 +86,7 @@ class TaskController extends Controller
             $res = $this->taskService->updateTask($request->validated(), $id);
             return $this->response->success($res['data'], $res['message'], $res['statusCode']);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -99,7 +99,7 @@ class TaskController extends Controller
             $res = $this->taskService->deleteTask($id);
             return $this->response->success($res['data'], $res['message'], $res['statusCode']);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -114,7 +114,7 @@ class TaskController extends Controller
             $res = $this->taskService->assignTask($request->validated());
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -127,7 +127,7 @@ class TaskController extends Controller
             $res = $this->taskService->allTasks($request);
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -141,7 +141,7 @@ class TaskController extends Controller
             $res = $this->taskService->allTasksByUser();
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -156,7 +156,7 @@ class TaskController extends Controller
             // Return success response
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
@@ -170,7 +170,7 @@ class TaskController extends Controller
             // Return success response
             return $this->response->success($res['data'], $res['message'], HttpStatusCodes::HTTP_OK);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 

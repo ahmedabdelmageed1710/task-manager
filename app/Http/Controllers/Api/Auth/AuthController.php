@@ -35,20 +35,19 @@ class AuthController extends Controller
             $res = $this->authService->login($request->validated());
             return $this->response->success($res['data'], $res['message'], $res['statusCode']);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 
     public function register(RegisterRequest $request)
     {
         // Validate the incoming request data (email and password).
-
         try {
             // Attempt to register the user
             $res = $this->authService->register($request->validated());
             return $this->response->success($res['data'], $res['message'], $res['statusCode']);
         } catch (\Exception $exception) {
-            return $this->response->error($exception->getMessage(), null, $exception->getCode()); // Return error response with exception message and code
+            return $this->response->error($exception->getMessage(), null, $exception->getCode() ?: HttpStatusCodes::HTTP_INTERNAL_SERVER_ERROR); // Return error response with exception message and code
         }
     }
 }
