@@ -3,23 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\ResponseRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct(ResponseRepository $response)
-    {
-        parent::__construct($response);
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Example of using the injected ResponseRepository
-        // $users = User::all();
-        // return $this->response->success($users, 'Users retrieved successfully');
+        //
     }
 
     /**

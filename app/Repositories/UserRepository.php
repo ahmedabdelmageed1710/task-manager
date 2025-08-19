@@ -6,7 +6,6 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -19,26 +18,6 @@ class UserRepository implements UserRepositoryInterface
     {
         // Create a new user instance with the provided data.
        return User::create($data);
-    }
-
-    public function findUserById($id)
-    {
-        return User::find($id);
-    }
-
-    public function findUserByEmail($email)
-    {
-        return User::where('email', $email)->first();
-    }
-
-    public function updateUser($data, $user)
-    {
-        return $user->update($data);
-    }
-
-    public function allUsers()
-    {
-        return User::where('status',true)->get();
     }
 
     /**
@@ -56,9 +35,9 @@ class UserRepository implements UserRepositoryInterface
         if (!Auth::attempt($credentials)) {
             $user = $this->findUserByEmail($credentials['email']);
             if(!$user){
-                return [ 'statusCode' => 404, 'data' => null, 'message' => 'No user exists with this email address.' ];
+                throw new \Exception('No user exists with this email address.', HttpStatusCodes::HTTP_NOT_FOUND);
             }else if(!Hash::check($credentials['password'], $user->password)) {
-                return [ 'statusCode' => 400, 'data' => null, 'message' => 'Wrong password.' ];
+                throw new \Exception('Wrong password.', HttpStatusCodes::HTTP_BAD_REQUEST);
             }
         }
 
@@ -72,19 +51,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function register($request)
     {
-        $user = $this->storeUser($request->all());
+        $user = $this->storeUser($request);
         $token = $user->createToken('access-token')->accessToken; // Create an access token for the user.
         return [ 'message' => 'User registered successfully.', 'data' => [ 'user' => $user, 'token' => $token ], 'statusCode' => 201 ];
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-
-    public function userByToken() {
-        $user = auth('api')->user();
-        return $user;
     }
 }

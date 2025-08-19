@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TasksRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 use App\Helpers\HttpStatusCodes;
 
-class UpdateTaskStatusRequest extends FormRequest
+class StoreTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true; // Allow all users to make this request.
+        return true;
     }
 
     /**
@@ -25,15 +25,22 @@ class UpdateTaskStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:pending,completed,canceled',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'due_date' => 'required|date|after_or_equal:today',
         ];
     }
+
 
     public function messages(): array
     {
         return [
-            'status.required' => 'The status field is required.',
-            'status.in' => 'The status must be one of the following: pending, completed, canceled.',
+            'title.required' => 'The title is required.',
+            'title.string' => 'The title must be a string.',
+            'title.max' => 'The title may not be greater than 255 characters.',
+            'due_date.required' => 'The due date is required.',
+            'due_date.date' => 'The due date must be a valid date.',
+            'due_date.after' => 'The due date must be a date after today.',
         ];
     }
 
